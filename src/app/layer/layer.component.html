@@ -1,0 +1,20 @@
+<div class="container" *ngIf="layer">
+    <div class="header">
+        <label for="target-count">Number Of Targets</label>
+        <input id="target-count" type="text" [(ngModel)]="layer.count" [ngModelOptions]="{ updateOn: 'blur' }">
+        <!--<input id="offset-trans-z" type="text" [(ngModel)]="offset.trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
+        <input id="offset-rot-z" type="text" [(ngModel)]="offset.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">-->
+    </div>
+    <div class="wrapper">
+        <div class="list-body">
+            <ng-container *ngFor="let target of layer.target; let i=index">
+                <div [class.selected]="(selectedTarget | async)===target" class="list-item"  (click)="onTargetSelect(target)">
+                    Target {{i}}
+                </div>
+            </ng-container>
+        </div>
+        <div class="target-view">
+            <app-target [target]="selectedTarget | async"></app-target>
+        </div>
+    </div>
+</div>

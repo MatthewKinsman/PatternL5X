@@ -1,0 +1,29 @@
+<div class="container" *ngIf="recipe">
+    <div class="header">
+        <label for="description">Description</label>
+        <input id="description" type="text" [(ngModel)]="recipe.description" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="layer-count">Number Of Layers</label>
+        <input id="layer-count" type="text" [(ngModel)]="recipe.outfeed.count" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="product-count">Product Per Pick</label>
+        <input id="product-count" type="text" [(ngModel)]="recipe.infeed.parameter.count" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="clearance">Pallet Clearance</label>
+        <input id="clearance" type="text" [(ngModel)]="recipe.outfeed.clearance" [ngModelOptions]="{ updateOn: 'blur' }">
+        
+        <!--<input id="offset-rot-z" type="text" [(ngModel)]="offset.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">-->
+
+    </div>
+    <div class="wrapper">
+        <div class="list-body">
+            <ng-container *ngFor="let layer of recipe?.outfeed?.layer; let i=index">
+                <div [class.selected]="(selectedLayer | async)===layer" class="list-item" (click)="onLayerSelect(layer)">
+                    Layer {{i}}
+                </div>
+            </ng-container>
+        </div>
+        <div class="layer-view">
+            <app-layer [layer]="selectedLayer | async">
+
+            </app-layer>
+        </div>
+    </div>
+</div>
