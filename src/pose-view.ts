@@ -98,7 +98,7 @@ class PosView implements Pos{
 
     }
     set x(value:number){
-        this.pos.x = value;
+        this.pos.x = value as number;
     }
     get x():number{
         return this.pos.x;

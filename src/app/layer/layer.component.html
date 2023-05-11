@@ -2,18 +2,18 @@
     <div class="header">
         <div>
             <label for="target-count">Number Of Targets</label>
-            <input class="numeric-input" id="target-count" type="text" [(ngModel)]="layer.count" [ngModelOptions]="{ updateOn: 'blur' }">
+            <input class="numeric-input" id="target-count" type="number" [(ngModel)]="layer.count" [ngModelOptions]="{ updateOn: 'blur' }">
         </div>
         <div>
             <div>Offset</div>
             <label for="offset-trans-x">X:</label>
-            <input class="numeric-input" id="offset-trans-x" type="text" [(ngModel)]="offset.trans.x" [ngModelOptions]="{ updateOn: 'blur' }">
+            <input class="numeric-input" id="offset-trans-x" type="number" [(ngModel)]="offset.trans.x" [ngModelOptions]="{ updateOn: 'blur' }">
             <label for="offset-trans-y">Y:</label>
-            <input class="numeric-input" id="offset-trans-y" type="text" [(ngModel)]="offset.trans.y" [ngModelOptions]="{ updateOn: 'blur' }">
+            <input class="numeric-input" id="offset-trans-y" type="number" [(ngModel)]="offset.trans.y" [ngModelOptions]="{ updateOn: 'blur' }">
             <label for="offset-trans-z">Z:</label>
-            <input class="numeric-input" id="offset-trans-z" type="text" [(ngModel)]="offset.trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
+            <input class="numeric-input" id="offset-trans-z" type="number" [(ngModel)]="offset.trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
             <label for="offset-rot-z">R:</label>
-            <input class="numeric-input" id="offset-rot-z" type="text" [(ngModel)]="offset.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">
+            <input class="numeric-input" id="offset-rot-z" type="number" [(ngModel)]="offset.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">
         </div>    
         <!--<input id="offset-trans-z" type="text" [(ngModel)]="offset.trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
         <input id="offset-rot-z" type="text" [(ngModel)]="offset.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">-->
