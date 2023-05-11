@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, of, ReplaySubject } from 'rxjs';
+import { switchMap, take } from 'rxjs/operators';
 import { BuildLayer } from '../recipe/build-layer';
 import { BuildPattern } from '../recipe/build-pattern';
 import { BuildPick } from '../recipe/build-pick';
@@ -38,8 +38,14 @@ export class RecipeService {
     })
   }
   
-  export(name : string):void{
+  save():void{
     this.recipes.pipe(take(1)).subscribe(x=>{
+      this.recipes.next(x);
+    })
+  }
+
+  export(name : string):Observable<string>{
+    return this.recipes.pipe(take(1), switchMap(x=>{
       const output = `[${x.reduce((prevRecipe, recipe, recipeIdx)=>{
         return prevRecipe+`${recipeIdx>0?'\n\t,':''}[[[${recipe.outfeed.layer.reduce((prevLayer, layer, layerIdx)=>{
           return prevLayer+`${layerIdx>0?',':''}[[${layer.target.reduce((prevTarget, target, targetIdx)=>{
@@ -51,18 +57,19 @@ export class RecipeService {
   return prevOffset+`${(offsetIdx>0?',':'')}[[${offset.trans.x.toExponential(8)},${offset.trans.y.toExponential(8)},${offset.trans.z.toExponential(8)}],[${offset.rot.qW.toExponential(8)},${offset.rot.qX.toExponential(8)},${offset.rot.qY.toExponential(8)},${offset.rot.qZ.toExponential(8)}]]`
 },'')}],[${recipe.infeed.parameter.distance.toExponential(8)},${recipe.infeed.parameter.count},[${recipe.infeed.parameter.guideSetting[0]},${recipe.infeed.parameter.guideSetting[1]}]]]]`
       }, '')}]`
-      
       const cdata = this.document?.createCDATASection(output);
       this.document!.querySelector('Tag[Name="Recipe"]')?.getElementsByTagName('Data')[0].replaceChild(cdata!, this.document!.querySelector('Tag[Name="Recipe"]')?.getElementsByTagName('Data')[0].childNodes.item(1)as Node);
       const serialize = new XMLSerializer();
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(new Blob([serialize.serializeToString(this.document!)],{type:"text/xml"}));
-      link.onclick = () =>{
-        this.document?.removeChild(link);
-      }
-      link.download=name;
-      link.click();
-    });
+      return of(window.URL.createObjectURL(new Blob([serialize.serializeToString(this.document!)],{type:"text/xml"})));
+      
+      //const link = document.createElement('a');
+      //link.onclick = () =>{
+      //  this.document?.removeChild(link);
+      //}
+      //link.download=name;
+      //link.click();
+      
+    }));
   }
 
   public get current():Observable<Recipe[]>{

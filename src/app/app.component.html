@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
         <input (input)="onImport($event)" type="file"/>
-        <button  (click)="onExport();">Export</button>
+        <a #export download="Update.L5X">Export</a>
     </div>
     <div class="wrapper">
         <div class="list-body">
