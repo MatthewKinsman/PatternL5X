@@ -1,3 +1,56 @@
 <div *ngIf="target">
-    Target Definition
+    <div>
+        <div>Position</div>
+        <label for="position-trans-x">X:</label>
+        <input class="numeric-input" id="position-trans-x" type="text" [(ngModel)]="position.trans.x" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="position-trans-y">Y:</label>
+        <input class="numeric-input" id="position-trans-y" type="text" [(ngModel)]="position.trans.y" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="position-trans-z">Z:</label>
+        <input class="numeric-input" id="position-trans-z" type="text" [(ngModel)]="position.trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="position-rot-z">R:</label>
+        <input class="numeric-input" id="position-rot-z" type="text" [(ngModel)]="position.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">
+    </div>
+    <div>
+        <div>Approach</div>
+        <label for="position-trans-x">X:</label>
+        <input class="numeric-input" id="position-trans-x" type="text" [(ngModel)]="target.approach.x" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="position-trans-y">Y:</label>
+        <input class="numeric-input" id="position-trans-y" type="text" [(ngModel)]="target.approach.y" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="position-trans-z">Z:</label>
+        <input class="numeric-input" id="position-trans-z" type="text" [(ngModel)]="target.approach.z" [ngModelOptions]="{ updateOn: 'blur' }">
+    </div>
+    <div>
+        <div>Pick</div>
+        <label for="pick-trans-x">X:</label> 
+        <input class="numeric-input" id="pick-trans-x" type="text" [(ngModel)]="pick.offset.trans.x" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="pick-trans-y">Y:</label>
+        <input class="numeric-input" id="pick-trans-y" type="text" [(ngModel)]="pick.offset.trans.y" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="pick-trans-z">Z:</label>
+        <input class="numeric-input" id="pick-trans-z" type="text" [(ngModel)]="pick.offset.trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
+        <label for="pick-rot-z">R:</label>
+        <input class="numeric-input" id="pick-rot-z" type="text" [(ngModel)]="pick.offset.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">
+    </div>
+    <div>
+        <label>Sensors</label>
+        <input class="check-box" [(ngModel)]="pick.flags.sensor_1" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.flags.sensor_2" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.flags.sensor_3" type="checkbox"> 
+        <input class="check-box" [(ngModel)]="pick.flags.sensor_4" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.flags.sensor_5" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.flags.sensor_6" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.flags.sensor_7" type="checkbox">
+        <label>Mask</label>
+        <input class="check-box" [(ngModel)]="pick.mask.sensor_1" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.mask.sensor_2" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.mask.sensor_3" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.mask.sensor_4" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.mask.sensor_5" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.mask.sensor_6" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.mask.sensor_7" type="checkbox">
+        <label>Zones</label>
+        <input class="check-box" [(ngModel)]="pick.flags.zone_1" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.flags.zone_2" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.flags.zone_3" type="checkbox">
+        <input class="check-box" [(ngModel)]="pick.flags.zone_4" type="checkbox">
+    </div>
 </div>

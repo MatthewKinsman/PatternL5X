@@ -5,3 +5,13 @@
 .container{
     height: 100%;
 }
+
+.numeric-input{
+    width:100px;
+}
+
+.check-box{
+    margin: 3px;
+    width: 15px;
+    height: 15px;
+}

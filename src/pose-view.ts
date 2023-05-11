@@ -18,7 +18,15 @@ class EulerView{
     private _y : number=0;
     private _z : number=0;
     private fromOrient(){
-        const norm = 2/(this.orient.qW*this.orient.qW+this.orient.qX*this.orient.qX+this.orient.qY*this.orient.qY+this.orient.qZ*this.orient.qZ);
+        let norm = (this.orient.qW*this.orient.qW+this.orient.qX*this.orient.qX+this.orient.qY*this.orient.qY+this.orient.qZ*this.orient.qZ);
+        if (norm==0){
+            this._x=0;
+            this._y=0;
+            this._z=0;
+            this.setOrient();
+            return;
+        }
+        norm = 2/norm;
         const identity = {
             x:{
                 x:1-norm*(this.orient.qY*this.orient.qY+this.orient.qZ*this.orient.qZ),
@@ -49,14 +57,15 @@ class EulerView{
             this._z = Math.atan2(identity.x.y, identity.x.x)*(180/Math.PI);
             this._x = Math.atan2(identity.y.z, identity.z.z);
         }
+        this._z = Math.round(this._z*10000)/10000;
     }
     private setOrient():void{
         const angle = [Math.cos(this._x/2*(Math.PI/180)),Math.cos(this._y/2*(Math.PI/180)),Math.cos(this._z/2*(Math.PI/180)),Math.sin(this._x/2*(Math.PI/180)),Math.sin(this._y/2*(Math.PI/180)),Math.sin(this._z/2*(Math.PI/180))]
+        console.log(angle);
         this.orient.qW = angle[2]*angle[1]*angle[0]+angle[5]*angle[4]*angle[4]; 
         this.orient.qX = angle[2]*angle[1]*angle[4]-angle[5]*angle[4]*angle[0];
         this.orient.qY = angle[2]*angle[4]*angle[0]+angle[5]*angle[1]*angle[3];
         this.orient.qZ = -angle[2]*angle[4]*angle[3]+angle[5]*angle[1]*angle[0];
-        console.log(this.orient);   
     }
 
     get x():number{

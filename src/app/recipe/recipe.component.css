@@ -31,13 +31,46 @@
 
 .list-item{
     height:30px;
+    display: flex;
+    flex-direction: row;
 }
 
-.list-item.selected{
+.list-item span{
+    flex-grow: 1;
+}
+.hidden{
+    visibility: hidden;
+}
+
+.hidden-button{
+    display: none;
+}
+
+.selected{
+    visibility: visible;
     background-color: #DEE0EC;
+}
+
+.visible{
+    display:initial;
 }
 
 .layer-view{
     width:100%;
     flex-grow: 1;
 }
+
+.infeed-offset-wrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.infeed-offset{
+    flex-grow: 1;
+}
+
+.numeric-input{
+    width:100px;
+}
+

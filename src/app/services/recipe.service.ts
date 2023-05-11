@@ -36,7 +36,7 @@ export class RecipeService {
       const output = `[${x.reduce((prevRecipe, recipe, recipeIdx)=>{
         return prevRecipe+`${recipeIdx>0?'\n\t,':''}[[[${recipe.outfeed.layer.reduce((prevLayer, layer, layerIdx)=>{
           return prevLayer+`${layerIdx>0?',':''}[[${layer.target.reduce((prevTarget, target, targetIdx)=>{
-            return prevTarget+`${targetIdx>0?'\n\t\t,':''}[[[${target.position.trans.x.toExponential(8)},${target.position.trans.y.toExponential(8)},${target.position.trans.z.toExponential(8)}],[${target.position.rot.qW.toExponential(8)},${target.position.rot.qX.toExponential(8)},${target.position.rot.qY.toExponential(8)},${target.position.rot.qZ.toExponential(8)}]],[${target.approach.x.toExponential(8)},${target.approach.x.toExponential(8)},${target.approach.x.toExponential(8)}],${target.flags},${target.mask},[[[${target.pick.offset.trans.x.toExponential(8)},${target.pick.offset.trans.y.toExponential(8)},${target.pick.offset.trans.z.toExponential(8)}],[${target.pick.offset.rot.qW.toExponential(8)},${target.pick.offset.rot.qX.toExponential(8)},${target.pick.offset.rot.qY.toExponential(8)},${target.pick.offset.rot.qZ.toExponential(8)}]],${target.pick.flags},${target.pick.mask}]]`
+            return prevTarget+`${targetIdx>0?'\n\t\t,':''}[[[${target.position.trans.x.toExponential(8)},${target.position.trans.y.toExponential(8)},${target.position.trans.z.toExponential(8)}],[${target.position.rot.qW.toExponential(8)},${target.position.rot.qX.toExponential(8)},${target.position.rot.qY.toExponential(8)},${target.position.rot.qZ.toExponential(8)}]],[${target.approach.x.toExponential(8)},${target.approach.x.toExponential(8)},${target.approach.x.toExponential(8)}],${target.pick.flags},${target.pick.mask|3840},[[[${target.pick.offset.trans.x.toExponential(8)},${target.pick.offset.trans.y.toExponential(8)},${target.pick.offset.trans.z.toExponential(8)}],[${target.pick.offset.rot.qW.toExponential(8)},${target.pick.offset.rot.qX.toExponential(8)},${target.pick.offset.rot.qY.toExponential(8)},${target.pick.offset.rot.qZ.toExponential(8)}]],${target.pick.flags},${target.pick.mask}]]`
           }, '')}]\n\t,${layer.count},[[${layer.offset.trans.x.toExponential(8)},${layer.offset.trans.y.toExponential(8)},${layer.offset.trans.z.toExponential(8)}],[${layer.offset.rot.qW.toExponential(8)},${layer.offset.rot.qX.toExponential(8)},${layer.offset.rot.qY.toExponential(8)},${layer.offset.rot.qZ.toExponential(8)}]]]`
         },'')}]\n,${recipe.outfeed.count},[[${recipe.outfeed.offset.trans.x.toExponential(8)},${recipe.outfeed.offset.trans.y.toExponential(8)},${recipe.outfeed.offset.trans.z.toExponential(8)}],[${recipe.outfeed.offset.rot.qW.toExponential(8)},${recipe.outfeed.offset.rot.qX.toExponential(8)},${recipe.outfeed.offset.rot.qY.toExponential(8)},${recipe.outfeed.offset.rot.qZ.toExponential(8)}]],${recipe.outfeed.clearance.toExponential(8)}],\
 [[${recipe.destacker.drop.position.toExponential(8)}],[${recipe.destacker.lift.position.toExponential(8)}],[${recipe.destacker.clamp.position.toExponential(8)},${recipe.destacker.clamp.delay.toExponential(8)}]],[${recipe.description.length},'${recipe.description}${'$00'.repeat(82-recipe.description.length)}'],
@@ -65,8 +65,6 @@ export class RecipeService {
     do{
       value = this.parseRecipe(value.substring(value.indexOf('[')), recipe=>recipes.push(recipe));
     }while(value.indexOf(',')>=0);
-    recipes[15].description="Test Export";
-    console.log(recipes);
     this.recipes.next(recipes);
   }
   

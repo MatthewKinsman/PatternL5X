@@ -1,22 +1,68 @@
 <div class="container" *ngIf="recipe">
     <div class="header">
-        <label for="description">Description</label>
-        <input id="description" type="text" [(ngModel)]="recipe.description" [ngModelOptions]="{ updateOn: 'blur' }">
-        <label for="layer-count">Number Of Layers</label>
-        <input id="layer-count" type="text" [(ngModel)]="recipe.outfeed.count" [ngModelOptions]="{ updateOn: 'blur' }">
-        <label for="product-count">Product Per Pick</label>
-        <input id="product-count" type="text" [(ngModel)]="recipe.infeed.parameter.count" [ngModelOptions]="{ updateOn: 'blur' }">
-        <label for="clearance">Pallet Clearance</label>
-        <input id="clearance" type="text" [(ngModel)]="recipe.outfeed.clearance" [ngModelOptions]="{ updateOn: 'blur' }">
-        
-        <!--<input id="offset-rot-z" type="text" [(ngModel)]="offset.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">-->
-
+        <div>
+            <label for="description">Description</label>
+            <input id="description" type="text" [(ngModel)]="recipe.description" [ngModelOptions]="{ updateOn: 'blur' }">
+            <label for="layer-count">Number Of Layers</label>
+            <input class="numeric-input" id="layer-count" type="text" [(ngModel)]="recipe.outfeed.count" [ngModelOptions]="{ updateOn: 'blur' }">
+            <label for="product-count">Product Per Pick</label>
+            <input class="numeric-input" id="product-count" type="text" [(ngModel)]="recipe.infeed.parameter.count" [ngModelOptions]="{ updateOn: 'blur' }">
+            <label for="clearance">Pallet Clearance</label>
+            <input class="numeric-input" id="clearance" type="text" [(ngModel)]="recipe.outfeed.clearance" [ngModelOptions]="{ updateOn: 'blur' }">
+            <label for="offset-rot-z">Infeed Distance</label>
+            <input class="numeric-input" id="offset-rot-z" type="text" [(ngModel)]="recipe.infeed.parameter.distance" [ngModelOptions]="{ updateOn: 'blur' }">
+        </div>
+        <div>
+            <div>Pallet Offset</div>
+            <label for="offset-trans-x">X:</label>
+            <input class="numeric-input" id="offset-trans-x" type="text" [(ngModel)]="palletOffset.trans.x" [ngModelOptions]="{ updateOn: 'blur' }">
+            <label for="offset-trans-y">Y:</label>
+            <input class="numeric-input" id="offset-trans-y" type="text" [(ngModel)]="palletOffset.trans.y" [ngModelOptions]="{ updateOn: 'blur' }">
+            <label for="offset-trans-z">Z:</label>
+            <input class="numeric-input" id="offset-trans-z" type="text" [(ngModel)]="palletOffset.trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
+            <label for="offset-rot-z">R:</label>
+            <input class="numeric-input" id="offset-rot-z" type="text" [(ngModel)]="palletOffset.euler.z" [ngModelOptions]="{ updateOn: 'blur' }">
+        </div>
+        <div class="infeed-offset-wrapper">
+            <div class="infeed-offset">
+                <div>Infeed Offset Left</div>
+                <label for="offset-trans-x">X:</label>
+                <input class="numeric-input" id="offset-trans-x" type="text" [(ngModel)]="infeedOffset[0].trans.x" [ngModelOptions]="{ updateOn: 'blur' }">
+                <label for="offset-trans-y">Y:</label>
+                <input class="numeric-input" id="offset-trans-y" type="text" [(ngModel)]="infeedOffset[0].trans.y" [ngModelOptions]="{ updateOn: 'blur' }">
+                <label for="offset-trans-z">Z:</label>
+                <input class="numeric-input" id="offset-trans-z" type="text" [(ngModel)]="infeedOffset[0].trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
+                <label for="offset-rot-z">R:</label>
+                <input class="numeric-input" id="offset-rot-z" type="text" [(ngModel)]="infeedOffset[0].euler.z" [ngModelOptions]="{ updateOn: 'blur' }">
+            </div>
+            <div class="infeed-offset">
+                <div>Infeed Offset Right</div>
+                <label for="offset-trans-x">X:</label>
+                <input class="numeric-input" id="offset-trans-x" type="text" [(ngModel)]="infeedOffset[1].trans.x" [ngModelOptions]="{ updateOn: 'blur' }">
+                <label for="offset-trans-y">Y:</label>
+                <input class="numeric-input" id="offset-trans-y" type="text" [(ngModel)]="infeedOffset[1].trans.y" [ngModelOptions]="{ updateOn: 'blur' }">
+                <label for="offset-trans-z">Z:</label>
+                <input class="numeric-input" id="offset-trans-z" type="text" [(ngModel)]="infeedOffset[1].trans.z" [ngModelOptions]="{ updateOn: 'blur' }">
+                <label for="offset-rot-z">R:</label>
+                <input class="numeric-input" id="offset-rot-z" type="text" [(ngModel)]="infeedOffset[1].euler.z" [ngModelOptions]="{ updateOn: 'blur' }">
+            </div>
+        </div>
     </div>
     <div class="wrapper">
         <div class="list-body">
             <ng-container *ngFor="let layer of recipe?.outfeed?.layer; let i=index">
                 <div [class.selected]="(selectedLayer | async)===layer" class="list-item" (click)="onLayerSelect(layer)">
-                    Layer {{i}}
+                    <span>
+                        Layer {{i}}
+                    </span>
+                    <div class="hidden" [class.selected]="(selectedLayer | async)===layer">
+                        <button class="hidden-button" [class.visible]="copyTarget" (click)="onTargetPaste(layer)">
+                            Paste
+                        </button>
+                        <button (click)="onTargetCopy(layer)">
+                            Copy
+                        </button>
+                    </div>
                 </div>
             </ng-container>
         </div>
