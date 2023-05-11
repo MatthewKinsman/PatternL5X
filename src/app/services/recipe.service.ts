@@ -39,7 +39,7 @@ export class RecipeService {
   }
   
   export(name : string):void{
-    this.recipes.subscribe(x=>{
+    this.recipes.pipe(take(1)).subscribe(x=>{
       const output = `[${x.reduce((prevRecipe, recipe, recipeIdx)=>{
         return prevRecipe+`${recipeIdx>0?'\n\t,':''}[[[${recipe.outfeed.layer.reduce((prevLayer, layer, layerIdx)=>{
           return prevLayer+`${layerIdx>0?',':''}[[${layer.target.reduce((prevTarget, target, targetIdx)=>{
@@ -57,6 +57,9 @@ export class RecipeService {
       const serialize = new XMLSerializer();
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(new Blob([serialize.serializeToString(this.document!)],{type:"text/xml"}));
+      link.onclick = () =>{
+        this.document?.removeChild(link);
+      }
       link.download=name;
       link.click();
     });
