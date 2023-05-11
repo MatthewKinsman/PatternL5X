@@ -61,7 +61,6 @@ class EulerView{
     }
     private setOrient():void{
         const angle = [Math.cos(this._x/2*(Math.PI/180)),Math.cos(this._y/2*(Math.PI/180)),Math.cos(this._z/2*(Math.PI/180)),Math.sin(this._x/2*(Math.PI/180)),Math.sin(this._y/2*(Math.PI/180)),Math.sin(this._z/2*(Math.PI/180))]
-        console.log(angle);
         this.orient.qW = angle[2]*angle[1]*angle[0]+angle[5]*angle[4]*angle[4]; 
         this.orient.qX = angle[2]*angle[1]*angle[4]-angle[5]*angle[4]*angle[0];
         this.orient.qY = angle[2]*angle[4]*angle[0]+angle[5]*angle[1]*angle[3];

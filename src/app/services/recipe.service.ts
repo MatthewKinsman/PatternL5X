@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { BuildLayer } from '../recipe/build-layer';
 import { BuildPattern } from '../recipe/build-pattern';
 import { BuildPick } from '../recipe/build-pick';
@@ -30,7 +31,13 @@ export class RecipeService {
     this.parseRecipes(recipe.replace(/\t/g, '').replace(/\n/g,''));
   }
 
-
+  paste(recipe : Recipe, index : number):void{
+    this.recipes.pipe(take(1)).subscribe(x=>{
+      x[index]= {outfeed:recipe.outfeed, description:`${recipe.description}(Copy)`, infeed:recipe.infeed, destacker:recipe.destacker};
+      this.recipes.next(x);
+    })
+  }
+  
   export(name : string):void{
     this.recipes.subscribe(x=>{
       const output = `[${x.reduce((prevRecipe, recipe, recipeIdx)=>{

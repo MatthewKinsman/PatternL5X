@@ -33,10 +33,28 @@
 }
 
 .list-item{
+    display: flex;
+    flex-direction: row;
     height:30px;
 }
 
-.list-item.selected{
+.list-item span{
+    flex-grow: 1;
+}
+.hidden{
+    visibility: hidden;
+}
+
+.hidden-button{
+    display: none;
+}
+
+.visible{
+    display:initial;
+}
+
+.selected{
+    visibility: visible;
     background-color: #DEE0EC;
 }
 

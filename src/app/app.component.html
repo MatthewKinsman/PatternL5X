@@ -7,7 +7,17 @@
         <div class="list-body">
             <ng-container *ngFor="let recipe of recipes | async; let i=index">
                 <div [class.selected]="(selected | async)===recipe" class="list-item" (click)="onSelect(recipe)">
-                    {{i}} {{recipe.description}}
+                    <span>
+                        {{i}} {{recipe.description}}
+                    </span>
+                    <div class="hidden" [class.selected]="(selected | async)===recipe">
+                        <button class="hidden-button" [class.visible]="copyRecipe" (click)="onRecipePaste(i)">
+                            Paste
+                        </button>
+                        <button (click)="onRecipeCopy(recipe)">
+                            Copy
+                        </button>
+                    </div>
                 </div>
             </ng-container>
         </div>
