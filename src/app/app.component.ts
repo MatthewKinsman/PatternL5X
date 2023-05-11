@@ -19,7 +19,7 @@ export class AppComponent {
   selected = this.selectSubject.asObservable();
   refresh = new BehaviorSubject(true);
   copyRecipe : Recipe | null = null;
-  
+  revision = 0;
   constructor(private recipe : RecipeService){
     this.recipes = this.refresh.pipe(switchMap(x=>recipe.current));
   }
@@ -38,7 +38,7 @@ export class AppComponent {
   }
 
   onExport():void{
-    this.recipe.export('Update.L5X');
+    this.recipe.export(`Update_${this.revision++}.L5X`);
   }
 
   onRecipeCopy(recipe : Recipe) : void{
