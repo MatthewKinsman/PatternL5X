@@ -24,10 +24,6 @@ export class AppComponent {
 
   constructor(private recipe : RecipeService, private sanatizer : DomSanitizer){
     this.recipes = this.refresh.pipe(switchMap(x=>recipe.current));
-    this.recipe.export('').subscribe(x=>{
-      const link = this.exportLink?.nativeElement as HTMLAnchorElement;
-      link.href = x;
-    })
   }
 
   onSelect(recipe : Recipe):void{
@@ -44,7 +40,7 @@ export class AppComponent {
   }
 
   onExport():void{
-    this.recipe.export(`Update_${this.revision++}.L5X`).subscribe(x=>console.log(x));
+    this.recipe.export(`Update_${this.revision++}.L5X`);
   }
 
   onRecipeCopy(recipe : Recipe) : void{

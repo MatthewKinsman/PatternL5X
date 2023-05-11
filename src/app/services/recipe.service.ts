@@ -44,8 +44,8 @@ export class RecipeService {
     })
   }
 
-  export(name : string):Observable<string>{
-    return this.recipes.pipe(take(1), switchMap(x=>{
+  export(name : string):void{
+    this.recipes.pipe(take(1)).subscribe(x=>{
       const output = `[${x.reduce((prevRecipe, recipe, recipeIdx)=>{
         return prevRecipe+`${recipeIdx>0?'\n\t,':''}[[[${recipe.outfeed.layer.reduce((prevLayer, layer, layerIdx)=>{
           return prevLayer+`${layerIdx>0?',':''}[[${layer.target.reduce((prevTarget, target, targetIdx)=>{
@@ -60,16 +60,15 @@ export class RecipeService {
       const cdata = this.document?.createCDATASection(output);
       this.document!.querySelector('Tag[Name="Recipe"]')?.getElementsByTagName('Data')[0].replaceChild(cdata!, this.document!.querySelector('Tag[Name="Recipe"]')?.getElementsByTagName('Data')[0].childNodes.item(1)as Node);
       const serialize = new XMLSerializer();
-      return of(window.URL.createObjectURL(new Blob([serialize.serializeToString(this.document!)],{type:"text/xml"})));
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(new Blob([serialize.serializeToString(this.document!)],{type:"text/xml"}));
+      link.onclick = () =>{
+        this.document?.removeChild(link);
+      }
+      link.download=name;
+      link.click();
       
-      //const link = document.createElement('a');
-      //link.onclick = () =>{
-      //  this.document?.removeChild(link);
-      //}
-      //link.download=name;
-      //link.click();
-      
-    }));
+    });
   }
 
   public get current():Observable<Recipe[]>{
