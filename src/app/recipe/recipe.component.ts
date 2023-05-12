@@ -52,7 +52,8 @@ export class RecipeComponent implements OnInit {
   }
 
   onTargetPaste(layer : BuildLayer):void{
-    layer.target = this.copyTarget!;
+    //layer.target = this.copyTarget!;
+    layer.target = JSON.parse(JSON.stringify(this.copyTarget));
     this.recipe = this._recipe;
   }
 

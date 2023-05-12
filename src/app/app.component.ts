@@ -44,7 +44,7 @@ export class AppComponent {
   }
 
   onRecipeCopy(recipe : Recipe) : void{
-    this.copyRecipe = recipe;
+    this.copyRecipe = JSON.parse(JSON.stringify(recipe));
     console.log(this.copyRecipe);
   }
 

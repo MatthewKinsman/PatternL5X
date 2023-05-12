@@ -46,7 +46,7 @@ export class LayerComponent implements OnInit {
   }
 
   onPickPaste(target : BuildTarget):void{
-    target.pick = this.copyPick!;
+    target.pick = JSON.parse(JSON.stringify(this.copyPick));
     this.layer = this._layer;
   }
 }
